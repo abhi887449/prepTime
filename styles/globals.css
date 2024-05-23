@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+  
+  .react-clock__face {
+    border: 1px solid white !important;
+  }
+  .react-clock__hand__body {
+    background-color: white !important;
+  }
+  
+  .react-clock__mark__body {
+    background-color: white !important;
+  }
+  
+  
+  .react-clock__second-hand__body {
+    background-color: red !important;
+  }
