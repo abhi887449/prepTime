@@ -23,7 +23,7 @@ const clock = () => {
     };
   }, []);
   return (
-    <>
+    <div className='mb-20'>
     <PrepTimeNavbar/>
     <div className='flex justify-center mt-[6vh]'>
       <Clock value={value} size={300} hourMarksWidth={4} hourMarksLength={15} />
@@ -33,7 +33,7 @@ const clock = () => {
         <div className='flex justify-center pt-1 text-6xl font-bold text-black'>{value.getDate()}</div>
         <div className='flex justify-center text-lg font-bold text-black w-32 h-9'>{days[value.getDay()]}</div>
     </div>
-      </>
+      </div>
   )
 }
 

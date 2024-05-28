@@ -6,18 +6,29 @@ import {
   Chip,
   CircularProgress,
   Input,
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
 } from "@nextui-org/react";
+import usePrepTimeStore from "@/store/prepTimeStore";
 import { Howl, Howler } from "howler";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
-const timer = () => {
+const FullLengthTest = () => {
   const [value, setValue] = useState(0);
   const [timerTime, setTimerTime] = useState("00:00:00");
-  const [isSelected, setIsSelected] = useState(false);
   const [playTimer, setPlayTimer] = useState("00:00:00");
+  const [tempTimer, setTempTimer] = useState("00:00:00");
+  const [testData, setTestData] = useState([]);
   const [intervals, setintervals] = useState([]);
 
+  const router = useRouter();
+  const addTest = usePrepTimeStore((state) => state.addTest);
   var sound = new Howl({
     src: ["/timeout.mp3"],
   });
@@ -28,28 +39,14 @@ const timer = () => {
     sound.on("end", function () {});
   };
   const startTimer = () => {
+    setTempTimer(timerTime);
     var getHours = parseInt(timerTime.substring(0, 2));
     var getMinutes = parseInt(timerTime.substring(3, 5));
     var getSeconds = parseInt(timerTime.substring(6));
     const range = getHours * 60 * 60 + getMinutes * 60 + getSeconds;
     let timerEnd = range;
     timer = setInterval(() => {
-      if (timerEnd <= 0 && isSelected) {
-        playaudio();
-        setValue(100);
-        timerEnd = range;
-        toast.success("Time up!", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-      } else if (timerEnd <= 0) {
+      if (timerEnd <= 0) {
         playaudio();
         setValue(0);
         setTimerTime("00:00:00");
@@ -83,13 +80,13 @@ const timer = () => {
   };
   const resetTimer = async () => {
     intervals.forEach((item) => {
-        clearInterval(item);
-      });
-      setIsSelected(false)
-      setPlayTimer("00:00:00")
-      setTimerTime("00:00:00")
-      setValue(0)
-      toast.success("Timer Reseted Successfully!", {
+      clearInterval(item);
+    });
+    setValue(0);
+    setTimerTime("00:00:00");
+    setPlayTimer("00:00:00");
+    setTempTimer("00:00:00");
+    toast.success("Timer Reseted Successfully!", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -104,8 +101,15 @@ const timer = () => {
   const handleKeyPress = (e) => {
     if (e.key === " ") {
       document.getElementById("start-btn").click();
-    } else if (e.key === "r" || e.key === "R") {
+    }
+     else if (e.key === "r" || e.key === "R") {
       resetTimer();
+    }
+     else if (e.key === "s" || e.key === "S") {
+        document.getElementById("skip-btn").click();
+    }
+     else if (e.key === "c" || e.key === "C") {
+        document.getElementById("complete-btn").click();
     }
   };
   useEffect(() => {
@@ -117,7 +121,42 @@ const timer = () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
   }, []);
-
+  const handleAddTestData = (QuestionStatus) => {
+    let [h1, m1, s1] = tempTimer.split(':').map(Number);
+    let [h2, m2, s2] = playTimer.split(':').map(Number);
+    setTempTimer(playTimer);
+    let totalSeconds1 = h1 * 3600 + m1 * 60 + s1;
+    let totalSeconds2 = h2 * 3600 + m2 * 60 + s2;
+    let differenceSeconds = Math.abs(totalSeconds1 - totalSeconds2);
+    let hours = Math.floor(differenceSeconds / 3600);
+    let minutes = Math.floor((differenceSeconds % 3600) / 60);
+    let seconds = differenceSeconds % 60;
+    var tempTestData = {
+      question: testData.length + 1,
+      status: QuestionStatus,
+      timeTaken: `${("0" + hours).slice(-2)}:${("0" + minutes).slice(-2)}:${(
+        "0" + seconds
+      ).slice(-2)}`,
+    };
+    setTestData([...testData, tempTestData]);
+  };
+  const saveTestData = () => {
+    addTest({
+        testDate: new Date().toLocaleString(),
+        testData: testData
+    });
+    setTestData([]);
+  };
+  const handleSaveTestDataAndEndTest = () => {
+    addTest({
+        testDate: new Date().toLocaleString(),
+        testData: testData
+    });
+    setTestData([]);
+    resetTimer()
+    router.push("/show-report");
+  };
+ 
   return (
     <div className="mb-20">
       <ToastContainer
@@ -172,14 +211,6 @@ const timer = () => {
               setTimerTime(e.target.value);
             }}
           />
-          <Checkbox
-            className="mt-3"
-            color="warning"
-            isSelected={isSelected}
-            onValueChange={setIsSelected}
-          >
-            Auto repeat
-          </Checkbox>
         </div>
         <div className="flex justify-center gap-3 mt-5">
           <Button
@@ -196,8 +227,75 @@ const timer = () => {
           </Button>
         </div>
       </div>
+      <div className="m-5">
+        <Table aria-label="Example static collection table">
+          <TableHeader>
+            <TableColumn>QUESTION</TableColumn>
+            <TableColumn>STATUS</TableColumn>
+            <TableColumn>TIME TAKEN</TableColumn>
+          </TableHeader>
+          {testData.length === 0 ? (
+            <TableBody emptyContent={"No rows to display."}>{[]}</TableBody>
+          ) : (
+            <TableBody>
+              {testData.map((item, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{item?.question}</TableCell>
+                    <TableCell>{item?.status}</TableCell>
+                    <TableCell>{item?.timeTaken}</TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          )}
+        </Table>
+      </div>
+      <div className="flex justify-center gap-3 mt-8">
+        <Button
+          onClick={() => handleAddTestData("Completed")}
+          size="lg"
+          color="success"
+          isDisabled={timerTime === "00:00:00"}
+          id="complete-btn"
+        >
+          Completed
+        </Button>
+        <Button
+          onClick={() => handleAddTestData("Skiped")}
+          size="lg"
+          color="warning"
+          isDisabled={timerTime === "00:00:00"}
+          id="skip-btn"
+        >
+          Skip
+        </Button>
+      </div>
+      <div className="flex justify-center flex-col gap-5 mt-10">
+        <Button
+          className="self-center"
+          size="lg"
+          color="primary"
+          onClick={saveTestData}
+          isDisabled={testData.length === 0 && testData.length === 0}
+        >
+          Save Test Data
+        </Button>
+        <Button
+          className="self-center"
+          size="lg"
+          color="primary"
+          onClick={handleSaveTestDataAndEndTest}
+          isDisabled={testData.length === 0 && testData.length === 0}
+        >
+          Save Test Data and End Test
+        </Button>
+        <Button onClick={()=>router.push("/show-report")} className="self-center" size="lg" color="secondary">
+          Show Report
+        </Button>
+      </div>
     </div>
   );
 };
 
-export default timer;
+export default FullLengthTest;
