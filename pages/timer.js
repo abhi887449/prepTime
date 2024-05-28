@@ -11,7 +11,7 @@ import { Howl, Howler } from "howler";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const timer = () => {
+const Timer = () => {
   const [value, setValue] = useState(0);
   const [timerTime, setTimerTime] = useState("00:00:00");
   const [isSelected, setIsSelected] = useState(false);
@@ -200,4 +200,4 @@ const timer = () => {
   );
 };
 
-export default timer;
+export default Timer;
