@@ -3,7 +3,7 @@ import Clock from 'react-clock'
 import 'react-clock/dist/Clock.css';
 import PrepTimeNavbar from "@/components/PrepTimeNavbar"
 
-const Clock = () => {
+const PrepTimeClock = () => {
     const currenttime = new Date()
     const [value, setValue] = useState(currenttime);
     const [digitaltime,setDigitaltime]=useState(`${currenttime.getHours()}:${currenttime.getMinutes()}:${currenttime.getSeconds()}:${currenttime.getMilliseconds()} `)
@@ -37,4 +37,4 @@ const Clock = () => {
   )
 }
 
-export default Clock
+export default PrepTimeClock
