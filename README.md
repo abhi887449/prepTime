@@ -39,7 +39,7 @@ This project was built with the following technologies:
 
 ## How to use PrepTime
 
-To use PrepTime you can either go to its web app - [PrepTime](https://preptime.vercel.app/) or download its App [click to Download App](). Features of PrepTime is explained below -
+To use PrepTime you can either go to its web app - [PrepTime](https://preptime.vercel.app/) or download its App [click to Download App](https://github.com/abhi887449/preptime/blob/main/AndroidAppData/PrepTime/app/release/app-release.apk). Features of PrepTime is explained below -
 
 ### `Clock`
 

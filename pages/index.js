@@ -15,6 +15,10 @@ export default function Home() {
     <div className="mb-20">
     <PrepTimeNavbar/>
     {(userPrepTimeData.userName === "" || userPrepTimeData.examName === null || userPrepTimeData.examDate === null) ? <UserDetailForm/>:<StartRelaxStudy/>}
+    <div className="flex justify-center">
+    <img className="self-center mt-10" src="https://visitcount.itsvg.in/api?id=preptime&label=Page%20Views&color=2&icon=5&pretty=true" />
+
+    </div>
     </div>
   );
 }

@@ -64,7 +64,6 @@ const StartRelaxStudy = () => {
       >
         Take a Break
       </Button>
-        <img className="self-center mt-10" src="https://visitcount.itsvg.in/api?id=preptime&label=Page%20Views&color=2&icon=5&pretty=true" />
 
     </div>
   );
