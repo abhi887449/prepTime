@@ -1,40 +1,76 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+<img src="./public/preptimelogo.png" height="150">
+<p style="color:gold;">A Time Management Tool for Students</p>
+</div>
+<hr></hr>
 
-## Getting Started
+## Table of Contents
 
-First, run the development server:
+- [Table of Contents](#table-of-contents)
+- [What is PrepTime](#what-is-preptime)
+  - [Built With](#built-with)
+- [How to use PrepTime](#how-to-use-preptime)
+  - [Clock](#clock)
+  - [Timer](#timer)
+  - [Full Length Test](#full-length-test)
+  - [Show Report](#show-report)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## What is PrepTime
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+PrepTime is a comprehensive tool that will help students in optimizing their study routines and enhancing academic performance. It offers a range of features to facilitate efficient study management and performance analysis:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Study Time Analysis
+- Test Analysis
+- Performance Insights
+- Last 10 test analysis
+- The streak feature helps in motivating students to maintain consistency
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Built With
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+This project was built with the following technologies:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [NextUI](https://nextui.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Tostify](https://www.npmjs.com/package/react-toastify)
+- [React Clock](https://projects.wojtekmaj.pl/react-clock/)
+- [React-Chartjs](https://react-chartjs-2.js.org/)
 
-## Learn More
+## How to use PrepTime
 
-To learn more about Next.js, take a look at the following resources:
+To use PrepTime you can either go to its web app - [PrepTime](#what-is-preptime) or download its App [click to Download App](#what-is-preptime). Features of PrepTime is explained below -
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### `Clock`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The inclusion of the clock feature in PrepTime serves as a crucial
+time-tracking tool for students. By allowing students to monitor the
+duration of their study sessions, the clock feature empowers
+students to manage their time effectively and make the most out of
+their study sessions. It provides valuable insights into their study
+habits, helping them allocate their time more efficiently and
+maintain a balanced approach to learning.
 
-## Deploy on Vercel
+### `Timer`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The timer feature helps students set a timer for a specified
+interval of time and receive notifications. I extended this feature
+by adding an auto-repeat option, allowing students to receive
+notifications after each interval of time they specify.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### `Full Length Test`
+
+This feature will assist students during full-length tests. They can
+set the test timer when they begin the test and proceed to solve
+their paper. Each button serves the following purpose:
+
+- `Start` : This button is used to start the test timer after specifying the test time.
+- `Reset` : This button is used to reset the test timer if needed.
+- `Completed` : Students will use this button when they complete their answer. By clicking the "Completed" button, they can add a timestamp to the test data indicating that the question has been solved.
+- `Skip` : Students will use this button when they are unable to solve a question and wish to skip it. By clicking the "Skip" button, they can add a timestamp to the test data indicating that the question has not been solved.
+- `Save Test Data` : Students will use this button when they want to add test data to the main test list. This test data will be used to analyze student performance.
+- `Save Test Data and End Test`: Students will use this button when they want to add test data to the main test list and navigate directly to the report page for analysis.
+
+### `Show Report`
+
+Here, students will receive a brief description of their performance, including details such as total study hours, performance in the last 10 tests, and a comprehensive view of all test data. This information empowers them to prepare effectively for their exams by understanding their strengths and areas for improvement.
